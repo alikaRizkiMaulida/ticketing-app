@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
+{
+    protected $table = 'orders';
+
+    protected $fillable = [
+        'transaction_time',
+        'total_price',
+        'total_item',
+        'payment_amount',
+        'cashier_name',
+        'payment_method',
+        'cashier_id',
+    ];
+
+    public function cashier(){
+        return $this->belongsTo(User::class, 'cashier_id', 'id');
+    }
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
+    }
+}
